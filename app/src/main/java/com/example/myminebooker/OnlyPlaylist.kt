@@ -1,5 +1,6 @@
 package com.example.myminebooker
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
@@ -9,14 +10,17 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myminebooker.adapters.CustomAdapterSomeBooks
-import com.example.myminebooker.models.Playlist
+import com.example.myminebooker.components.adapters.CustomAdapterSomeBooks
+import com.example.myminebooker.table.models.Playlist
 import com.example.myminebooker.util.MyDB
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class OnlyPlaylist : AppCompatActivity() {
     private lateinit var elTextViewPlaylistId: TextView
     private lateinit var elTextViewPlaylistName: TextView
     private lateinit var elRecyclerViewBookList : RecyclerView
+    private lateinit var elFloatingActionButtonDeletePlaylist:  FloatingActionButton
+    private lateinit var elFloatingActionButtonUpdatePlaylist:  FloatingActionButton
 
     private val db = MyDB(this)
     private lateinit var playlistData: Playlist
@@ -34,6 +38,8 @@ class OnlyPlaylist : AppCompatActivity() {
         elTextViewPlaylistId = findViewById(R.id.textViewPlaylistId)
         elTextViewPlaylistName = findViewById(R.id.textViewPlaylistName)
         elRecyclerViewBookList = findViewById(R.id.recyclerViewBookList)
+        elFloatingActionButtonUpdatePlaylist = findViewById(R.id.floatingActionButtonUpdatePlaylist)
+        elFloatingActionButtonDeletePlaylist = findViewById(R.id.floatingActionButtonDeletePlaylist)
 
         val id = intent.getIntExtra("id", 0)
         val data = db.tablePlaylist.getOneById(id)
@@ -42,18 +48,31 @@ class OnlyPlaylist : AppCompatActivity() {
             Toast.makeText(this, "Playlist Not Found !!", Toast.LENGTH_SHORT)
                 .show()
             return
+        } else {
+            playlistData = data
         }
 
-        playlistData = data
-        setup()
-    }
-
-    private fun setup() {
         elTextViewPlaylistId.text = playlistData.id.toString()
         elTextViewPlaylistName.text = playlistData.name
 
         val adapter = CustomAdapterSomeBooks(this, db, playlistData)
         elRecyclerViewBookList.adapter = adapter
         elRecyclerViewBookList.layoutManager = LinearLayoutManager(this)
+
+        elFloatingActionButtonUpdatePlaylist.setOnClickListener {
+            val intent = Intent( this, UpdatePlaylist::class.java )
+            intent.putExtra("id", playlistData.id)
+            startActivity(intent)
+        }
+
+        elFloatingActionButtonDeletePlaylist.setOnClickListener {
+            val status = db.tablePlaylist.deleteOneById( playlistData.id )
+
+            if ( status > 0 ) {
+                Toast.makeText(this, "Deleted Successfully !!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Error Deleting !!", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

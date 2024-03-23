@@ -13,7 +13,7 @@
         android:padding="35dp">
 
         <EditText
-            android:id="@+id/EditTextPlaylistName"
+            android:id="@+id/editTextPlaylistName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
@@ -23,7 +23,7 @@
             />
 
         <Button
-            android:id="@+id/ButtonAddPlaylist"
+            android:id="@+id/buttonAddPlaylist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/UpdatePlaylist_ButtonAddPlaylist_text"

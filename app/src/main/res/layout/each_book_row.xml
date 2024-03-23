@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="14dp"
+        android:layout_marginBottom="10dp"
         android:background="#404144">
 
         <TextView
@@ -18,19 +17,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:layout_marginStart="12dp"
-            android:text="ID"
             android:textColor="@color/white"
             android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.509" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/textViewBookEachTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Title"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@+id/textViewBookEachId"
@@ -40,7 +36,6 @@
             android:id="@+id/textViewBookEachAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Author"
             android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/textViewBookEachTitle"

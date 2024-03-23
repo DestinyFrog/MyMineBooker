@@ -3,115 +3,110 @@ package com.example.myminebooker.table
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
-import com.example.myminebooker.models.Book
-import com.example.myminebooker.models.BookRequest
+import com.example.myminebooker.table.models.Book
+import com.example.myminebooker.table.models.BookRequest
 import com.example.myminebooker.db.Crud
+import com.example.myminebooker.util.MyDB
 
 data class TableBook (
     // ARGUMENTS
-    override val db: SQLiteOpenHelper,
+    override val db: MyDB,
 
-
-    override val TABLE_NAME: String = "book",
-
-    // TABLE COLUMNS
-    override val COLUMN_ID: String = "_id",
-    val COLUMN_TITLE:String = "title",
-    val COLUMN_AUTHOR:String = "author",
-) : Crud<Book, BookRequest>(db, TABLE_NAME, COLUMN_ID) {
-
+    override val tableName: String = "book",
+    override val columnId: String = "_id",
+    val columnTitle:String = "title",
+    val columnAuthor:String = "author"
+) : Crud<Book, BookRequest>(db, tableName, columnId) {
     override fun initTable( db: SQLiteDatabase) {
-        val query = "CREATE TABLE IF NOT EXISTS $TABLE_NAME (" +
-                "$COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                "$COLUMN_TITLE VARCHAR(255)," +
-                "$COLUMN_AUTHOR VARCHAR(255)" +
+        val query = "CREATE TABLE IF NOT EXISTS $tableName (" +
+                "$columnId INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "$columnTitle VARCHAR(255)," +
+                "$columnAuthor VARCHAR(255)" +
                 ");"
 
         db.execSQL( query )
     }
 
-
     @SuppressLint("Range")
     override fun getAll(): List<Book> {
-        val query = "SELECT "+COLUMN_ID+","+COLUMN_TITLE+","+COLUMN_AUTHOR+
-                " FROM "+TABLE_NAME+ ";"
-
-        val rdb = db.readableDatabase
-        val cursor = rdb.rawQuery(query, null)
-
         val data:MutableList<Book> = mutableListOf()
+        val query = "SELECT $columnId, $columnTitle,$columnAuthor" +
+                " FROM $tableName;"
+
+        val cursor = db.readableDatabase
+            .rawQuery(query, null)
 
         while( cursor.moveToNext() ) {
-            val newBook = Book(
-                cursor.getInt(cursor.getColumnIndex(COLUMN_ID) ),
-                cursor.getString( cursor.getColumnIndex(COLUMN_TITLE) ),
-                cursor.getString(cursor.getColumnIndex(COLUMN_AUTHOR) )
+            data.add(
+                Book(
+                    cursor.getInt(cursor.getColumnIndex(columnId) ),
+                    cursor.getString( cursor.getColumnIndex(columnTitle) ),
+                    cursor.getString(cursor.getColumnIndex(columnAuthor) )
+                )
             )
-            data.add(newBook)
         }
 
         cursor.close()
-        rdb.close()
         return data.toList()
     }
 
     @SuppressLint("Range")
     override fun getOneById(id: Int): Book? {
-        val query = "SELECT "+COLUMN_ID+","+COLUMN_TITLE+","+COLUMN_AUTHOR+
-                " FROM "+TABLE_NAME+
-                " WHERE "+COLUMN_ID+"=?"+
+        var data: Book? = null
+        val query = "SELECT $columnId,$columnTitle,$columnAuthor" +
+                " FROM $tableName" +
+                " WHERE $columnId=?"+
                 ";"
 
-        val rdb = db.readableDatabase
-        val cursor = rdb.rawQuery(query, listOf( id.toString() ).toTypedArray())
-
-        var data: Book? = null
+        val cursor = db.readableDatabase
+            .rawQuery(
+                query,
+                arrayOf( id.toString() )
+            )
 
         if ( cursor.count > 0 ) {
             if (cursor.moveToFirst()) {
                 data = Book(
-                    cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_AUTHOR))
+                    cursor.getInt(cursor.getColumnIndex(columnId)),
+                    cursor.getString(cursor.getColumnIndex(columnTitle)),
+                    cursor.getString(cursor.getColumnIndex(columnAuthor))
                 )
             }
         }
 
         cursor.close()
-        rdb.close()
         return data
     }
 
     override fun addOne(req: BookRequest): Long {
         val cv = ContentValues()
-        cv.put(COLUMN_TITLE, req.title)
-        cv.put(COLUMN_AUTHOR, req.author)
+        cv.put(columnTitle, req.title)
+        cv.put(columnAuthor, req.author)
 
-        val wdb = db.writableDatabase
-        val data = wdb.insert(TABLE_NAME, null, cv)
-        wdb.close()
-
-        return data
+        return db.writableDatabase
+            .insert(tableName, null, cv)
     }
 
     override fun updateOneByReq(id: Int, req: BookRequest): Int {
         val cv = ContentValues()
-        cv.put(COLUMN_TITLE, req.title)
-        cv.put(COLUMN_AUTHOR, req.author)
+        cv.put(columnTitle, req.title)
+        cv.put(columnAuthor, req.author)
 
-        val wdb = db.writableDatabase
-        val status = wdb.update(TABLE_NAME, cv, "$COLUMN_ID=?",
-            listOf(id.toString()).toTypedArray() )
-        wdb.close()
-
-        return status
+        return db.writableDatabase
+            .update(
+                tableName,
+                cv,
+                "$columnId=?",
+                listOf(id.toString()).toTypedArray<String>()
+            )
     }
 
     override fun deleteOneById(id: Int): Int {
-        val wdb = db.writableDatabase
-        val status = wdb.delete(TABLE_NAME, "$COLUMN_ID=?", listOf( id.toString() ).toTypedArray() )
-        wdb.close()
-        return status
+        return db.writableDatabase
+            .delete(
+                tableName,
+                "$columnId=?",
+                listOf( id.toString() ).toTypedArray()
+            )
     }
 }

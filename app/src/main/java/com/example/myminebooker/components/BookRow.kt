@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myminebooker.OnlyBook
 import com.example.myminebooker.R
-import com.example.myminebooker.models.Book
+import com.example.myminebooker.table.models.Book
 
 class BookRow (
     private val ctx: Context,

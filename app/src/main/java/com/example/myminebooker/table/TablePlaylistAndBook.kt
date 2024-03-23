@@ -1,41 +1,61 @@
 package com.example.myminebooker.table
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
-import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.myminebooker.models.PlaylistAndBookRequest
-import com.example.myminebooker.db.Table
+import com.example.myminebooker.db.InterTable
+import com.example.myminebooker.table.models.PlaylistAndBookRequest
+import com.example.myminebooker.table.models.Book
+import com.example.myminebooker.table.models.Playlist
 
 data class TablePlaylistAndBook (
     override val db: SQLiteOpenHelper,
     val tableBook:TableBook,
     val tablePlaylist:TablePlaylist,
 
-    override val TABLE_NAME: String = "playlist_and_book",
+    override val tableName: String = "playlist_and_book",
+    override val columnId: String = "_id",
+    override val columnIdTable1: String = "_id_book",
+    override val columnIdTable2: String = "_id_playlist",
 
-    // TABLE COLUMNS
-    // override val COLUMN_ID: String = "_id",
-    val COLUMN_ID_BOOK: String = "_id_book",
-    val COLUMN_ID_PLAYLIST: String = "_id_playlist"
-) : Table(db) {
-    override fun initTable( db:SQLiteDatabase ) {
-        val query = "CREATE TABLE IF NOT EXISTS $TABLE_NAME (" +
-                "$COLUMN_ID_BOOK INTEGER," +
-                "$COLUMN_ID_PLAYLIST INTEGER," +
-                "FOREIGN KEY ($COLUMN_ID_BOOK) REFERENCES ${tableBook.TABLE_NAME}(${tableBook.COLUMN_ID})," +
-                "FOREIGN KEY ($COLUMN_ID_PLAYLIST) REFERENCES ${tablePlaylist.TABLE_NAME}(${tablePlaylist.COLUMN_ID})" +
-                ");"
+    val columnTableBook: String = columnIdTable1,
+    val columnTablePlaylist: String = columnIdTable2
+) : InterTable(db, tableBook, tablePlaylist) {
 
-        db.execSQL( query )
+    @SuppressLint("Range")
+    fun getBooksByPlaylist(playlist: Playlist): List<Book> {
+        val data:MutableList<Book> = mutableListOf()
+        val query = "SELECT T1.${tableBook.columnId}, T1.${tableBook.columnTitle}, T1.${tableBook.columnAuthor}" +
+                " FROM $tableName T" +
+                " INNER JOIN ${tableBook.tableName} T1" +
+                " ON T1.${tableBook.columnId} = T.${tableBook.columnId}" +
+                " WHERE T.$columnTablePlaylist = ${playlist.id}" +
+                ";"
+
+        val cursor = db.readableDatabase
+            .rawQuery(query, null)
+
+        while( cursor.moveToNext() ) {
+            data.add(
+                Book (
+                    cursor.getInt(cursor.getColumnIndex(tableBook.columnId) ),
+                    cursor.getString(cursor.getColumnIndex(tableBook.columnTitle) ),
+                    cursor.getString(cursor.getColumnIndex(tableBook.columnAuthor) )
+                )
+            )
+        }
+
+        cursor.close()
+        return data.toList()
     }
 
-    fun addOne( req: PlaylistAndBookRequest ): Long {
+    fun addOne( req: PlaylistAndBookRequest): Long {
         val cv = ContentValues()
-        cv.put(COLUMN_ID_BOOK, req.idBook)
-        cv.put(COLUMN_ID_PLAYLIST, req.idPlaylist)
+        cv.put(columnIdTable1, req.idBook)
+        cv.put(columnIdTable2, req.idPlaylist)
 
         val wdb = db.writableDatabase
-        val data = wdb.insert(TABLE_NAME, null, cv)
+        val data = wdb.insert(tableName, null, cv)
         wdb.close()
 
         return data

@@ -4,9 +4,10 @@ import android.database.sqlite.SQLiteOpenHelper
 
 abstract class Crud<T, U> (
     override val db: SQLiteOpenHelper,
-    override val TABLE_NAME: String,
-    override val COLUMN_ID: String
-) : Table(db, TABLE_NAME, COLUMN_ID) {
+
+    override val tableName: String,
+    override val columnId: String
+) : Table(db, tableName, columnId) {
     abstract fun getAll(): List<T>
     abstract fun getOneById(id:Int): T?
     abstract fun addOne(req:U): Long

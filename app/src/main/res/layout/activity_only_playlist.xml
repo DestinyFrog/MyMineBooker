@@ -38,4 +38,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPlaylistName" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonUpdatePlaylist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="18dp"
+        android:contentDescription="@string/OnlyPlaylist_ButtonUpdatePlaylist_contentDescription"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonDeletePlaylist"
+        app:layout_constraintStart_toStartOf="@+id/floatingActionButtonDeletePlaylist"
+        app:srcCompat="@drawable/edit_icon" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonDeletePlaylist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="18dp"
+        android:contentDescription="@string/OnlyPlaylist_ButtonDeletePlaylist_contentDescription"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/delete_icon" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,8 @@ class MyDB (
     val tablePlaylist = TablePlaylist(this)
     val tablePlaylistAndBook = TablePlaylistAndBook(this, tableBook, tablePlaylist)
 
+    // init { onCreate( writableDatabase ) }
+
     override fun onCreate( db:SQLiteDatabase ) {
         tableBook.initTable(db)
         tablePlaylist.initTable(db)

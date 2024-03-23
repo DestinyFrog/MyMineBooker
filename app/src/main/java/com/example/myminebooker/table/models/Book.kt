@@ -1,4 +1,4 @@
-package com.example.myminebooker.models
+package com.example.myminebooker.table.models
 
 data class Book (
     val id:Int,

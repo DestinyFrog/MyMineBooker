@@ -8,8 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.myminebooker.models.Book
-import com.example.myminebooker.models.BookRequest
+import com.example.myminebooker.table.models.Book
+import com.example.myminebooker.table.models.BookRequest
 import com.example.myminebooker.util.MyDB
 
 class UpdateBook : AppCompatActivity() {
@@ -41,7 +41,6 @@ class UpdateBook : AppCompatActivity() {
         }
 
         val id = intent.getIntExtra("id", 0)
-
         val res =  db.tableBook.getOneById(id)
 
         if ( res == null ) {
@@ -56,10 +55,10 @@ class UpdateBook : AppCompatActivity() {
         elEditTextBookAuthor.setText( data.author )
 
         elButtonUpdateBook.setOnClickListener {
-            var inputReq = getInputs()
-            val res = db.tableBook.updateOneByReq(data.id, inputReq)
+            val inputReq = getInputs()
+            val status = db.tableBook.updateOneByReq(data.id, inputReq)
 
-            if (res == -1) {
+            if (status == -1) {
                 Toast.makeText(this, "Failed Updating Data!", Toast.LENGTH_SHORT)
                     .show()
             } else {

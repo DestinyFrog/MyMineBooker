@@ -1,7 +1,6 @@
 package com.example.myminebooker
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -9,7 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.myminebooker.models.BookRequest
+import com.example.myminebooker.table.models.BookRequest
 import com.example.myminebooker.util.MyDB
 
 class AddBook : AppCompatActivity() {
@@ -34,7 +33,7 @@ class AddBook : AppCompatActivity() {
         elButtonAddBook = findViewById(R.id.ButtonAddBook)
 
         elButtonAddBook.setOnClickListener {
-            var inputReq = getInputs()
+            val inputReq = getInputs()
             val res = db.tableBook.addOne(inputReq)
 
             if (res.toInt() == -1) {

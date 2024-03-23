@@ -12,9 +12,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.myminebooker.models.Book
-import com.example.myminebooker.models.Playlist
-import com.example.myminebooker.models.PlaylistAndBookRequest
+import com.example.myminebooker.table.models.Book
+import com.example.myminebooker.table.models.Playlist
+import com.example.myminebooker.table.models.PlaylistAndBookRequest
 import com.example.myminebooker.util.MyDB
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
