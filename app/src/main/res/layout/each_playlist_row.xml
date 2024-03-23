@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20px"
+        android:background="#404144"
+        >
+
+        <TextView
+            android:id="@+id/TextViewPlaylistEachId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.509" />
+
+        <TextView
+            android:id="@+id/TextViewEachPlaylistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/TextViewPlaylistEachId"
+            app:layout_constraintTop_toTopOf="@+id/TextViewPlaylistEachId" />
+
+        <ImageButton
+            android:id="@+id/ButtonDeletePlaylist"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:backgroundTint="#5BFFFFFF"
+            android:contentDescription="@string/eachPlaylistRow_ButtonDeletePlaylist_contentDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/delete_icon"
+            app:tint="#FFFFFF" />
+
+        <ImageButton
+            android:id="@+id/ButtonUpdatePlaylist"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:backgroundTint="#5BFFFFFF"
+            android:contentDescription="@string/eachPlaylistRow_ButtonUpdatePlaylist_contentDescription"
+            app:layout_constraintStart_toStartOf="@+id/ButtonDeletePlaylist"
+            app:layout_constraintTop_toBottomOf="@+id/ButtonDeletePlaylist"
+            app:srcCompat="@drawable/edit_icon"
+            app:tint="#FFFFFF" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

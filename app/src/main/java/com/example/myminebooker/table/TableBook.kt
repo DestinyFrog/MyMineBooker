@@ -4,30 +4,33 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.widget.Toast
 import com.example.myminebooker.models.Book
 import com.example.myminebooker.models.BookRequest
-import com.example.myminebooker.util.Crud
+import com.example.myminebooker.db.Crud
 
 data class TableBook (
+    // ARGUMENTS
     override val db: SQLiteOpenHelper,
-    override val TABLE_NAME: String = "books",
+
+
+    override val TABLE_NAME: String = "book",
 
     // TABLE COLUMNS
     override val COLUMN_ID: String = "_id",
-    private val COLUMN_TITLE:String = "title",
-    private val COLUMN_AUTHOR:String = "author",
-    private val COLUMN_NATIONALITY:String = "nationality"
+    val COLUMN_TITLE:String = "title",
+    val COLUMN_AUTHOR:String = "author",
+) : Crud<Book, BookRequest>(db, TABLE_NAME, COLUMN_ID) {
 
-    ) : Crud<Book, BookRequest> (db, TABLE_NAME, COLUMN_ID) {
-
-    override fun initTable(): String {
-        return "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                COLUMN_TITLE + " TEXT," +
-                COLUMN_AUTHOR + " TEXT" +
+    override fun initTable( db: SQLiteDatabase) {
+        val query = "CREATE TABLE IF NOT EXISTS $TABLE_NAME (" +
+                "$COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "$COLUMN_TITLE VARCHAR(255)," +
+                "$COLUMN_AUTHOR VARCHAR(255)" +
                 ");"
+
+        db.execSQL( query )
     }
+
 
     @SuppressLint("Range")
     override fun getAll(): List<Book> {
@@ -48,6 +51,7 @@ data class TableBook (
             data.add(newBook)
         }
 
+        cursor.close()
         rdb.close()
         return data.toList()
     }
@@ -74,6 +78,7 @@ data class TableBook (
             }
         }
 
+        cursor.close()
         rdb.close()
         return data
     }

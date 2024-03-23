@@ -1,4 +1,4 @@
-package com.example.myminebooker.util
+package com.example.myminebooker.db
 
 import android.database.sqlite.SQLiteOpenHelper
 

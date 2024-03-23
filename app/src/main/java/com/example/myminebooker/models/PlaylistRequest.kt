@@ -1,5 +1,5 @@
 package com.example.myminebooker.models
 
-public final data class ReadlistRequest (
+data class PlaylistRequest (
     val name: String
 )

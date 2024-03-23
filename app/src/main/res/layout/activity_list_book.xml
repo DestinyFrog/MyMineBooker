@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="35sp"
-    tools:context=".MainActivity">
+    tools:context=".ListBook">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewPlaylistList"
+        android:id="@+id/recyclerViewBookList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,18 +21,6 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButtonBookList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:backgroundTint="#673AB7"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonAdd"
-        app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonAdd"
-        app:srcCompat="@drawable/list_icon" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButtonAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,6 +28,7 @@
         android:layout_marginBottom="18dp"
         android:clickable="true"
         android:focusable="true"
+        android:contentDescription="Button to add a new Book"
         app:backgroundTint="#673AB7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

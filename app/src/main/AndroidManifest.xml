@@ -13,6 +13,31 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".UpdatePlaylist"
+            android:exported="false"
+            android:label="MyMineBooker"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".OnlyPlaylist"
+            android:exported="false"
+            android:label="MyMineBooker"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".OnlyBook"
+            android:exported="false"
+            android:label="MyMineBooker"
+            android:parentActivityName=".ListBook"/>
+        <activity
+            android:name=".AddPlaylist"
+            android:exported="false"
+            android:label="MyMineBooker"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ListBook"
+            android:exported="false"
+            android:label="MyMineBooker"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".UpdateBook"
             android:exported="false"
             android:label="MyMineBooker"
@@ -21,7 +46,7 @@
             android:name=".AddBook"
             android:exported="false"
             android:label="MyMineBooker"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".ListBook" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -4,38 +4,28 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.myminebooker.table.TableBook
-import com.example.myminebooker.table.TableReadlist
+import com.example.myminebooker.table.TablePlaylist
+import com.example.myminebooker.table.TablePlaylistAndBook
 
 class MyDB (
     ctx: Context,
 
-    DB_NAME: String = "Books.db",
-    DB_VERSION: Int = 1
+    dbName: String = "Books.db",
+    dbVersion: Int = 1
+    ) : SQLiteOpenHelper (ctx, dbName, null, dbVersion) {
 
-) : SQLiteOpenHelper (ctx, DB_NAME, null, DB_VERSION) {
+    val tableBook = TableBook(this)
+    val tablePlaylist = TablePlaylist(this)
+    val tablePlaylistAndBook = TablePlaylistAndBook(this, tableBook, tablePlaylist)
 
-    public val tableBook:TableBook = TableBook(this)
-    public val tableReadlist:TableReadlist = TableReadlist(this)
-
-    override fun onOpen(db: SQLiteDatabase?) {
-        super.onOpen(db)
+    override fun onCreate( db:SQLiteDatabase ) {
+        tableBook.initTable(db)
+        tablePlaylist.initTable(db)
+        tablePlaylistAndBook.initTable(db)
     }
-
-    override fun onCreate(db: SQLiteDatabase) {
-        var query = tableBook.initTable()
-        db.execSQL(query)
-
-        query = tableReadlist.initTable()
-        db.execSQL(query)
-    }
-
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        var query = tableBook.upgradeTable()
-        db.execSQL(query)
-
-        query = tableReadlist.upgradeTable()
-        db.execSQL(query)
-
-        onCreate(db)
+        tableBook.upgradeTable(db)
+        tablePlaylist.upgradeTable(db)
+        tablePlaylistAndBook.upgradeTable(db)
     }
 }
