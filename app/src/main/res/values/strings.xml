@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">MyMineBooker</string>
 
-    <string name="addPlaylist_EditTextPlaylistName_hint">Title</string>
-    <string name="addPlaylist_ButtonAddPlaylist_text">Add a Playlist</string>
+    <string name="AddPlaylist_EditTextPlaylistName_hint">Title</string>
+    <string name="AddPlaylist_ButtonAddPlaylist_text">Add a Playlist</string>
 
-    <string name="updatePlaylist_EditTextPlaylistName_hint">Name</string>
-    <string name="updatePlaylist_ButtonAddPlaylist_text">Update a Playlist</string>
+    <string name="UpdatePlaylist_EditTextPlaylistName_hint">Name</string>
+    <string name="UpdatePlaylist_ButtonAddPlaylist_text">Update a Playlist</string>
 
-    <string name="eachPlaylistRow_ButtonDeletePlaylist_contentDescription">Button to delete a playlist</string>
-    <string name="eachPlaylistRow_ButtonUpdatePlaylist_contentDescription">Button to update a playlist</string>
+    <string name="EachPlaylistRow_ButtonDeletePlaylist_contentDescription">Button to delete a playlist</string>
+    <string name="EachPlaylistRow_ButtonUpdatePlaylist_contentDescription">Button to update a playlist</string>
 </resources>

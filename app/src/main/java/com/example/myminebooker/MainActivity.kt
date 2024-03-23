@@ -8,7 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myminebooker.components.adapters.CustomAdapterAllPlaylist
+import com.example.myminebooker.adapters.CustomAdapterAllPlaylist
 import com.example.myminebooker.util.MyDB
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
