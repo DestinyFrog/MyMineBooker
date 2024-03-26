@@ -66,13 +66,19 @@ class OnlyPlaylist : AppCompatActivity() {
         }
 
         elFloatingActionButtonDeletePlaylist.setOnClickListener {
-            val status = db.tablePlaylist.deleteOneById( playlistData.id )
+            if ( db.tablePlaylist.deleteOneById( playlistData.id ) > 0 )
+                Toast.makeText(this, "Deleted Successfully !!", Toast.LENGTH_SHORT)
+                    .show()
+            else
+                Toast.makeText(this, "Error Deleting !!", Toast.LENGTH_SHORT)
+                    .show()
 
-            if ( status > 0 ) {
-                Toast.makeText(this, "Deleted Successfully !!", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Error Deleting !!", Toast.LENGTH_SHORT).show()
-            }
+            if ( db.tablePlaylistAndBook.deleteByPlaylist( playlistData ) > 0 )
+                Toast.makeText(this, "Deleted Connections Successfully !!", Toast.LENGTH_SHORT)
+                    .show()
+            else
+                Toast.makeText(this, "Error Deleting Connections !!", Toast.LENGTH_SHORT)
+                    .show()
         }
     }
 }

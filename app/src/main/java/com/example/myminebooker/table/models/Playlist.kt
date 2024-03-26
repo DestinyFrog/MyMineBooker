@@ -1,6 +1,10 @@
 package com.example.myminebooker.table.models
 
-data class Playlist (
+class Playlist (
     val id: Int,
     val name: String
-)
+) {
+    override fun toString(): String {
+        return "$id. $name"
+    }
+}

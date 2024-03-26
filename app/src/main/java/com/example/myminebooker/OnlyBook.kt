@@ -3,6 +3,7 @@ package com.example.myminebooker
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
@@ -61,10 +62,15 @@ class OnlyBook : AppCompatActivity() {
             Toast.makeText(this, "Book Not Found !!", Toast.LENGTH_SHORT)
                 .show()
             return
-        } else {
+        } else
             bookData = data
-            setup()
-        }
+
+        elTextViewBookId.text = bookData.id.toString()
+        elTextViewBookTitle.text = bookData.title
+        elTextViewBookAuthor.text = bookData.author
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, playlistData )
+        elSpinnerChoosePlaylist.adapter = adapter
 
         elFloatingActionButtonEditBook.setOnClickListener {
             val intent = Intent( this, UpdateBook::class.java )
@@ -73,12 +79,19 @@ class OnlyBook : AppCompatActivity() {
         }
 
         elFloatingActionButtonDeleteBook.setOnClickListener {
-            val status = db.tableBook.deleteOneById( data.id )
-            if ( status > 0 ) {
-                Toast.makeText(this, "Deleted Successfully !!", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Error Deleting !!", Toast.LENGTH_SHORT).show()
-            }
+            if ( db.tableBook.deleteOneById( data.id ) > 0 )
+                Toast.makeText(this, "Deleted Successfully !!", Toast.LENGTH_SHORT)
+                    .show()
+            else
+                Toast.makeText(this, "Error Deleting !!", Toast.LENGTH_SHORT)
+                    .show()
+
+            if ( db.tablePlaylistAndBook.deleteByBook( data ) > 0 )
+                Toast.makeText(this, "Connections Deleted Succesfully !!", Toast.LENGTH_SHORT)
+                    .show()
+            else
+                Toast.makeText(this, "Error Deleting Connections !!", Toast.LENGTH_SHORT)
+                    .show()
         }
 
         elFloatingActionButtonSearchBook.setOnClickListener {
@@ -90,53 +103,24 @@ class OnlyBook : AppCompatActivity() {
 
         elButtonAddToPlaylist.setOnClickListener {
             val req = getInputs()
-            if (req == null) {
-                Toast.makeText(this, "Playlist Not Found", Toast.LENGTH_SHORT)
+            val res = db.tablePlaylistAndBook.addOne(req)
+
+            if ( res.toInt() == -1 )
+                Toast.makeText(this, "Book Not Added !!", Toast.LENGTH_SHORT)
                     .show()
-            } else {
-                val res = db.tablePlaylistAndBook.addOne(req)
-                if ( res.toInt() == -1 ) {
-                    Toast.makeText(this, "Book Not Added !!", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    Toast.makeText(this, "Book Added Succesfully", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
+            else
+                Toast.makeText(this, "Book Added Successfully", Toast.LENGTH_SHORT)
+                    .show()
         }
     }
 
-    private fun setup() {
-        elTextViewBookId.text = bookData.id.toString()
-        elTextViewBookTitle.text = bookData.title
-        elTextViewBookAuthor.text = bookData.author
-
-        val namePlaylists: MutableList<String> = mutableListOf()
-
-        for ( eachPlay in playlistData ) {
-            namePlaylists.add( eachPlay.name )
-        }
-
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, namePlaylists )
-        elSpinnerChoosePlaylist.adapter = adapter
-    }
-
-    private fun getInputs(): PlaylistAndBookRequest? {
+    private fun getInputs(): PlaylistAndBookRequest {
         val item = elSpinnerChoosePlaylist.getSelectedItem().toString()
-        var chosenPlaylist: Int? = null
-
-        for ( eachPlaylist in playlistData ) {
-            if ( eachPlaylist.name == item ) {
-                chosenPlaylist = eachPlaylist.id
-            }
-        }
-
-        if (chosenPlaylist == null)
-            return null
+        val id = ( item.split(".")[0] ).toInt()
 
         return PlaylistAndBookRequest (
             bookData.id,
-            chosenPlaylist
+            id
         )
     }
 }

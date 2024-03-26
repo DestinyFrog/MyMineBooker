@@ -14,7 +14,7 @@ open class InterTable (
     open val columnIdTable2:String = "${table2.columnId}_table2"
 ) {
     open fun initTable(db:SQLiteDatabase) {
-        val query = "CREATE TABLE $tableName (" +
+        val query = "CREATE TABLE IF NOT EXISTS $tableName (" +
                 "$columnId INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "$columnIdTable1 INTEGER," +
                 "$columnIdTable2 INTEGER," +

@@ -10,7 +10,7 @@ open class Table (
     open val columnId:String = "_id",
 ) {
     open fun initTable( db:SQLiteDatabase ) {
-        val query = "CREATE TABLE $tableName (" +
+        val query = "CREATE TABLE IF NOT EXISTS $tableName (" +
                 "$columnId INTEGER PRIMARY KEY AUTO_INCREMENT" +
                 ");"
 

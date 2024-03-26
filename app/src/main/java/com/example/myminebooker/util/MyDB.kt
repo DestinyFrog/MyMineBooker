@@ -12,13 +12,11 @@ class MyDB (
 
     dbName: String = "Books.db",
     dbVersion: Int = 1
-    ) : SQLiteOpenHelper (ctx, dbName, null, dbVersion) {
+) : SQLiteOpenHelper (ctx, dbName, null, dbVersion) {
 
     val tableBook = TableBook(this)
     val tablePlaylist = TablePlaylist(this)
     val tablePlaylistAndBook = TablePlaylistAndBook(this, tableBook, tablePlaylist)
-
-    // init { onCreate( writableDatabase ) }
 
     override fun onCreate( db:SQLiteDatabase ) {
         tableBook.initTable(db)

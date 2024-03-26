@@ -25,7 +25,7 @@ data class TablePlaylistAndBook (
     @SuppressLint("Range")
     fun getBooksByPlaylist(playlist: Playlist): List<Book> {
         val data:MutableList<Book> = mutableListOf()
-        val query = "SELECT T1.${tableBook.columnId}, T1.${tableBook.columnTitle}, T1.${tableBook.columnAuthor}" +
+        val query = "SELECT T.$columnId, T1.${tableBook.columnId}, T1.${tableBook.columnTitle}, T1.${tableBook.columnAuthor}" +
                 " FROM $tableName T" +
                 " INNER JOIN ${tableBook.tableName} T1" +
                 " ON T1.${tableBook.columnId} = T.${tableBook.columnId}" +
@@ -49,10 +49,10 @@ data class TablePlaylistAndBook (
         return data.toList()
     }
 
-    fun addOne( req: PlaylistAndBookRequest): Long {
+    fun addOne(req: PlaylistAndBookRequest): Long {
         val cv = ContentValues()
-        cv.put(columnIdTable1, req.idBook)
-        cv.put(columnIdTable2, req.idPlaylist)
+        cv.put(columnTableBook, req.idBook)
+        cv.put(columnTablePlaylist, req.idPlaylist)
 
         val wdb = db.writableDatabase
         val data = wdb.insert(tableName, null, cv)
@@ -60,4 +60,24 @@ data class TablePlaylistAndBook (
 
         return data
     }
+
+    fun deleteByBook( bookData: Book ): Int {
+        return db.writableDatabase
+            .delete(
+                tableName,
+                "$columnTableBook=?",
+                arrayOf( bookData.id.toString() )
+            )
+    }
+
+    fun deleteByPlaylist( playlistData: Playlist ): Int {
+        return db.writableDatabase
+            .delete(
+                tableName,
+                "$columnTablePlaylist=?",
+                arrayOf( playlistData.id.toString() )
+            )
+    }
+
+
 }
