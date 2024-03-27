@@ -16,7 +16,6 @@ import com.example.myminebooker.util.MyDB
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class OnlyPlaylist : AppCompatActivity() {
-    private lateinit var elTextViewPlaylistId: TextView
     private lateinit var elTextViewPlaylistName: TextView
     private lateinit var elRecyclerViewBookList : RecyclerView
     private lateinit var elFloatingActionButtonDeletePlaylist:  FloatingActionButton
@@ -35,7 +34,6 @@ class OnlyPlaylist : AppCompatActivity() {
             insets
         }
 
-        elTextViewPlaylistId = findViewById(R.id.textViewPlaylistId)
         elTextViewPlaylistName = findViewById(R.id.textViewPlaylistName)
         elRecyclerViewBookList = findViewById(R.id.recyclerViewBookList)
         elFloatingActionButtonUpdatePlaylist = findViewById(R.id.floatingActionButtonUpdatePlaylist)
@@ -52,7 +50,6 @@ class OnlyPlaylist : AppCompatActivity() {
             playlistData = data
         }
 
-        elTextViewPlaylistId.text = playlistData.id.toString()
         elTextViewPlaylistName.text = playlistData.name
 
         val adapter = CustomAdapterSomeBooks(this, db, playlistData)

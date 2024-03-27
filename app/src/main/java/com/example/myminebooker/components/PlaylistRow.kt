@@ -13,12 +13,10 @@ class PlaylistRow (
     private val ctx: Context,
     private val view: View,
 
-    private val elTextViewPlaylistEachId: TextView =  view.findViewById(R.id.TextViewPlaylistEachId),
     private val elTextViewPlaylistEachName: TextView = view.findViewById(R.id.TextViewEachPlaylistName)
 ) : RecyclerView.ViewHolder(view) {
 
     fun setup( thePlaylist: Playlist) {
-        elTextViewPlaylistEachId.text = thePlaylist.id.toString()
         elTextViewPlaylistEachName.text = thePlaylist.name
 
         itemView.setOnClickListener {

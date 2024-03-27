@@ -25,10 +25,10 @@ data class TablePlaylistAndBook (
     @SuppressLint("Range")
     fun getBooksByPlaylist(playlist: Playlist): List<Book> {
         val data:MutableList<Book> = mutableListOf()
-        val query = "SELECT T.$columnId, T1.${tableBook.columnId}, T1.${tableBook.columnTitle}, T1.${tableBook.columnAuthor}" +
+        val query = "SELECT T1.${tableBook.columnId}, T1.${tableBook.columnTitle}, T1.${tableBook.columnAuthor}" +
                 " FROM $tableName T" +
                 " INNER JOIN ${tableBook.tableName} T1" +
-                " ON T1.${tableBook.columnId} = T.${tableBook.columnId}" +
+                " ON T1.${tableBook.columnId} = T.$columnTableBook" +
                 " WHERE T.$columnTablePlaylist = ${playlist.id}" +
                 ";"
 
@@ -76,6 +76,15 @@ data class TablePlaylistAndBook (
                 tableName,
                 "$columnTablePlaylist=?",
                 arrayOf( playlistData.id.toString() )
+            )
+    }
+
+    fun deleteByPlaylistAndBook( playlistData: Playlist, bookData: Book ): Int {
+        return db.writableDatabase
+            .delete(
+                tableName,
+                "$columnTablePlaylist=? AND $columnTableBook=?",
+                arrayOf( playlistData.id.toString(), bookData.id.toString() )
             )
     }
 

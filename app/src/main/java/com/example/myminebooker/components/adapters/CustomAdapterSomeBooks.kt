@@ -20,7 +20,7 @@ class CustomAdapterSomeBooks (
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookRow {
         val inflater = LayoutInflater.from(ctx)
         val view = inflater.inflate(R.layout.each_book_row, parent, false)
-        return BookRow(ctx, view)
+        return BookRow(ctx, view, db, playlist)
     }
 
     override fun getItemCount(): Int {

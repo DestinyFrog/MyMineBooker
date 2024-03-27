@@ -12,4 +12,6 @@
 
     <string name="OnlyPlaylist_ButtonUpdatePlaylist_contentDescription">Button to Open Edit Page for Playlist</string>
     <string name="OnlyPlaylist_ButtonDeletePlaylist_contentDescription">Button Delete a Playlist</string>
+
+    <string name="EachBookRow_ButtonBookRemovePlaylist_text">Remove</string>
 </resources>
