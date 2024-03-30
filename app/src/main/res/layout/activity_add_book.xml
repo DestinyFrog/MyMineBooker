@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="35sp"
-    tools:context=".AddBook">
+    tools:context=".components.Book.AddBook">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,6 +29,23 @@
         android:layout_marginBottom="25dp"
         android:hint="Author:"
         />
+
+        <EditText
+            android:id="@+id/EditTextBookNationality"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:hint="Nationality:"
+            />
+
+        <EditText
+            android:id="@+id/EditTextBookDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:lines="5"
+            android:hint="Description:"
+            />
 
     <Button
         android:id="@+id/ButtonAddBook"

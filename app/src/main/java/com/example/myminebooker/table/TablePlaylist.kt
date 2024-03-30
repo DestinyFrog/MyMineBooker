@@ -3,8 +3,8 @@ package com.example.myminebooker.table
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
-import com.example.myminebooker.table.models.Playlist
-import com.example.myminebooker.table.models.PlaylistRequest
+import com.example.myminebooker.models.Playlist
+import com.example.myminebooker.models.PlaylistRequest
 import com.example.myminebooker.db.Crud
 import com.example.myminebooker.util.MyDB
 

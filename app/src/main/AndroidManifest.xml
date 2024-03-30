@@ -13,40 +13,40 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".UpdatePlaylist"
+            android:name=".components.Playlist.UpdatePlaylist"
             android:exported="false"
             android:label="MyMineBooker"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".OnlyPlaylist"
+            android:name=".components.Playlist.OnlyPlaylist"
             android:exported="false"
             android:label="MyMineBooker"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".OnlyBook"
+            android:name=".components.Book.OnlyBook"
             android:exported="false"
             android:label="MyMineBooker"
-            android:parentActivityName=".ListBook"/>
+            android:parentActivityName=".components.Book.ListBook"/>
         <activity
-            android:name=".AddPlaylist"
+            android:name=".components.Playlist.AddPlaylist"
             android:exported="false"
             android:label="MyMineBooker"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".ListBook"
+            android:name=".components.Book.ListBook"
             android:exported="false"
             android:label="MyMineBooker"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".UpdateBook"
+            android:name=".components.Book.UpdateBook"
             android:exported="false"
             android:label="MyMineBooker"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".AddBook"
+            android:name=".components.Book.AddBook"
             android:exported="false"
             android:label="MyMineBooker"
-            android:parentActivityName=".ListBook" />
+            android:parentActivityName=".components.Book.ListBook" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

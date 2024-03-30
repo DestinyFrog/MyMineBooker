@@ -1,4 +1,4 @@
-package com.example.myminebooker
+package com.example.myminebooker.components.Book
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myminebooker.R
 import com.example.myminebooker.components.adapters.CustomAdapterAllBooks
 import com.example.myminebooker.util.MyDB
 import com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -3,8 +3,8 @@ package com.example.myminebooker.table
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
-import com.example.myminebooker.table.models.Book
-import com.example.myminebooker.table.models.BookRequest
+import com.example.myminebooker.models.Book
+import com.example.myminebooker.models.BookRequest
 import com.example.myminebooker.db.Crud
 import com.example.myminebooker.util.MyDB
 
@@ -15,13 +15,17 @@ data class TableBook (
     override val tableName: String = "book",
     override val columnId: String = "_id",
     val columnTitle:String = "title",
-    val columnAuthor:String = "author"
+    val columnAuthor:String = "author",
+    val columnNationality:String = "nationality",
+    val columnDescription:String = "description"
 ) : Crud<Book, BookRequest>(db, tableName, columnId) {
     override fun initTable( db: SQLiteDatabase) {
         val query = "CREATE TABLE IF NOT EXISTS $tableName (" +
                 "$columnId INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 "$columnTitle VARCHAR(255)," +
-                "$columnAuthor VARCHAR(255)" +
+                "$columnAuthor VARCHAR(255)," +
+                "$columnNationality VARCHAR(255)," +
+                "$columnDescription TEXT" +
                 ");"
 
         db.execSQL( query )
@@ -30,7 +34,7 @@ data class TableBook (
     @SuppressLint("Range")
     override fun getAll(): List<Book> {
         val data:MutableList<Book> = mutableListOf()
-        val query = "SELECT $columnId, $columnTitle,$columnAuthor" +
+        val query = "SELECT $columnId, $columnTitle,$columnAuthor,$columnNationality,$columnDescription" +
                 " FROM $tableName;"
 
         val cursor = db.readableDatabase
@@ -41,7 +45,9 @@ data class TableBook (
                 Book(
                     cursor.getInt(cursor.getColumnIndex(columnId) ),
                     cursor.getString( cursor.getColumnIndex(columnTitle) ),
-                    cursor.getString(cursor.getColumnIndex(columnAuthor) )
+                    cursor.getString(cursor.getColumnIndex(columnAuthor) ),
+                    cursor.getString(cursor.getColumnIndex(columnNationality) ),
+                    cursor.getString(cursor.getColumnIndex(columnDescription) )
                 )
             )
         }
@@ -53,7 +59,7 @@ data class TableBook (
     @SuppressLint("Range")
     override fun getOneById(id: Int): Book? {
         var data: Book? = null
-        val query = "SELECT $columnId,$columnTitle,$columnAuthor" +
+        val query = "SELECT $columnId,$columnTitle,$columnAuthor,$columnNationality,$columnDescription" +
                 " FROM $tableName" +
                 " WHERE $columnId=?"+
                 ";"
@@ -69,7 +75,9 @@ data class TableBook (
                 data = Book(
                     cursor.getInt(cursor.getColumnIndex(columnId)),
                     cursor.getString(cursor.getColumnIndex(columnTitle)),
-                    cursor.getString(cursor.getColumnIndex(columnAuthor))
+                    cursor.getString(cursor.getColumnIndex(columnAuthor)),
+                    cursor.getString(cursor.getColumnIndex(columnNationality) ),
+                    cursor.getString(cursor.getColumnIndex(columnDescription) )
                 )
             }
         }
@@ -82,6 +90,8 @@ data class TableBook (
         val cv = ContentValues()
         cv.put(columnTitle, req.title)
         cv.put(columnAuthor, req.author)
+        cv.put(columnNationality, req.nationality)
+        cv.put(columnDescription, req.description)
 
         return db.writableDatabase
             .insert(tableName, null, cv)
@@ -91,6 +101,8 @@ data class TableBook (
         val cv = ContentValues()
         cv.put(columnTitle, req.title)
         cv.put(columnAuthor, req.author)
+        cv.put(columnNationality, req.nationality)
+        cv.put(columnDescription, req.description)
 
         return db.writableDatabase
             .update(

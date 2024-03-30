@@ -1,4 +1,4 @@
-package com.example.myminebooker
+package com.example.myminebooker.components.Playlist
 
 import android.os.Bundle
 import android.widget.Button
@@ -8,8 +8,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.myminebooker.table.models.Playlist
-import com.example.myminebooker.table.models.PlaylistRequest
+import com.example.myminebooker.R
+import com.example.myminebooker.models.Playlist
+import com.example.myminebooker.models.PlaylistRequest
 import com.example.myminebooker.util.MyDB
 
 class UpdatePlaylist : AppCompatActivity() {

@@ -14,4 +14,6 @@
     <string name="OnlyPlaylist_ButtonDeletePlaylist_contentDescription">Button Delete a Playlist</string>
 
     <string name="EachBookRow_ButtonBookRemovePlaylist_text">Remove</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

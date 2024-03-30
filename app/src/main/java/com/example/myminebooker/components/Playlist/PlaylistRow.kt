@@ -1,13 +1,12 @@
-package com.example.myminebooker.components
+package com.example.myminebooker.components.Playlist
 
 import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myminebooker.OnlyPlaylist
 import com.example.myminebooker.R
-import com.example.myminebooker.table.models.Playlist
+import com.example.myminebooker.models.Playlist
 
 class PlaylistRow (
     private val ctx: Context,

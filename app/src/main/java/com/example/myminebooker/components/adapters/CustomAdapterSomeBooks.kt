@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myminebooker.R
-import com.example.myminebooker.components.BookRow
-import com.example.myminebooker.table.models.Book
-import com.example.myminebooker.table.models.Playlist
+import com.example.myminebooker.components.Book.BookRow
+import com.example.myminebooker.models.Book
+import com.example.myminebooker.models.Playlist
 import com.example.myminebooker.util.MyDB
 
 class CustomAdapterSomeBooks (

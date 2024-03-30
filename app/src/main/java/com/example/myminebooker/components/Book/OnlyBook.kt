@@ -1,9 +1,8 @@
-package com.example.myminebooker
+package com.example.myminebooker.components.Book
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
@@ -13,9 +12,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.myminebooker.table.models.Book
-import com.example.myminebooker.table.models.Playlist
-import com.example.myminebooker.table.models.PlaylistAndBookRequest
+import com.example.myminebooker.R
+import com.example.myminebooker.models.Book
+import com.example.myminebooker.models.Playlist
+import com.example.myminebooker.models.PlaylistAndBookRequest
 import com.example.myminebooker.util.MyDB
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -23,6 +23,9 @@ class OnlyBook : AppCompatActivity() {
     private lateinit var elTextViewBookId: TextView
     private lateinit var elTextViewBookTitle: TextView
     private lateinit var elTextViewBookAuthor: TextView
+    private lateinit var elTextViewBookNationality: TextView
+    private lateinit var elTextViewBookDescription: TextView
+
     private lateinit var elSpinnerChoosePlaylist: Spinner
     private lateinit var elButtonAddToPlaylist: Button
     private lateinit var elFloatingActionButtonEditBook: FloatingActionButton
@@ -49,6 +52,8 @@ class OnlyBook : AppCompatActivity() {
         elTextViewBookId = findViewById(R.id.textViewBookId)
         elTextViewBookTitle = findViewById(R.id.textViewBookTitle)
         elTextViewBookAuthor = findViewById(R.id.textViewBookAuthor)
+        elTextViewBookNationality = findViewById(R.id.textViewBookNationality)
+        elTextViewBookDescription = findViewById(R.id.textViewBookDescription)
         elSpinnerChoosePlaylist = findViewById(R.id.spinnerChoosePlaylist)
         elButtonAddToPlaylist = findViewById(R.id.buttonAddToPlaylist)
         elFloatingActionButtonEditBook = findViewById(R.id.floatingActionButtonEditBook)
@@ -68,6 +73,8 @@ class OnlyBook : AppCompatActivity() {
         elTextViewBookId.text = bookData.id.toString()
         elTextViewBookTitle.text = bookData.title
         elTextViewBookAuthor.text = bookData.author
+        elTextViewBookNationality.text = bookData.nationality
+        elTextViewBookDescription.text = bookData.description
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, playlistData )
         elSpinnerChoosePlaylist.adapter = adapter

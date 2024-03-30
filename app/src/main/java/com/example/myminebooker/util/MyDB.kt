@@ -23,6 +23,7 @@ class MyDB (
         tablePlaylist.initTable(db)
         tablePlaylistAndBook.initTable(db)
     }
+
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         tableBook.upgradeTable(db)
         tablePlaylist.upgradeTable(db)

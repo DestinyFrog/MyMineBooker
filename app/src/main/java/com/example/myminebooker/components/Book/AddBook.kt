@@ -1,4 +1,4 @@
-package com.example.myminebooker
+package com.example.myminebooker.components.Book
 
 import android.os.Bundle
 import android.widget.Button
@@ -8,12 +8,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.myminebooker.table.models.BookRequest
+import com.example.myminebooker.R
+import com.example.myminebooker.models.BookRequest
 import com.example.myminebooker.util.MyDB
 
 class AddBook : AppCompatActivity() {
     private lateinit var elEditTextBookTitle:EditText
     private lateinit var elEditTextBookAuthor:EditText
+    private lateinit var elEditTextBookNationality:EditText
+    private lateinit var elEditTextBookDescription:EditText
     private lateinit var elButtonAddBook:Button
 
     private var db = MyDB(this)
@@ -30,6 +33,8 @@ class AddBook : AppCompatActivity() {
 
         elEditTextBookTitle = findViewById(R.id.EditTextBookTitle)
         elEditTextBookAuthor = findViewById(R.id.EditTextBookAuthor)
+        elEditTextBookNationality = findViewById(R.id.EditTextBookNationality)
+        elEditTextBookDescription = findViewById(R.id.EditTextBookDescription)
         elButtonAddBook = findViewById(R.id.ButtonAddBook)
 
         elButtonAddBook.setOnClickListener {
@@ -50,12 +55,16 @@ class AddBook : AppCompatActivity() {
     private fun getInputs(): BookRequest {
         return BookRequest(
             elEditTextBookTitle.text.toString(),
-            elEditTextBookAuthor.text.toString()
+            elEditTextBookAuthor.text.toString(),
+            elEditTextBookNationality.text.toString(),
+            elEditTextBookDescription.text.toString()
         )
     }
 
     private fun resetInputs() {
         elEditTextBookTitle.setText("")
         elEditTextBookAuthor.setText("")
+        elEditTextBookNationality.setText("")
+        elEditTextBookDescription.setText("")
     }
 }

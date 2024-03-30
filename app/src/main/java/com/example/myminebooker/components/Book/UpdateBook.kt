@@ -1,4 +1,4 @@
-package com.example.myminebooker
+package com.example.myminebooker.components.Book
 
 import android.os.Bundle
 import android.widget.Button
@@ -8,13 +8,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.myminebooker.table.models.Book
-import com.example.myminebooker.table.models.BookRequest
+import com.example.myminebooker.R
+import com.example.myminebooker.models.Book
+import com.example.myminebooker.models.BookRequest
 import com.example.myminebooker.util.MyDB
 
 class UpdateBook : AppCompatActivity() {
     private lateinit var elEditTextBookTitle:EditText
     private lateinit var elEditTextBookAuthor:EditText
+    private lateinit var elEditTextBookNationality:EditText
+    private lateinit var elEditTextBookDescription:EditText
     private lateinit var elButtonUpdateBook:Button
 
     private var db = MyDB(this)
@@ -32,6 +35,8 @@ class UpdateBook : AppCompatActivity() {
 
         elEditTextBookTitle = findViewById(R.id.EditTextBookTitle)
         elEditTextBookAuthor = findViewById(R.id.EditTextBookAuthor)
+        elEditTextBookNationality = findViewById(R.id.EditTextBookNationality)
+        elEditTextBookDescription = findViewById(R.id.EditTextBookDescription)
         elButtonUpdateBook = findViewById(R.id.ButtonUpdateBook)
 
         if ( !intent.hasExtra("id") ) {
@@ -53,6 +58,8 @@ class UpdateBook : AppCompatActivity() {
 
         elEditTextBookTitle.setText( data.title )
         elEditTextBookAuthor.setText( data.author )
+        elEditTextBookNationality.setText( data.nationality )
+        elEditTextBookDescription.setText( data.description )
 
         elButtonUpdateBook.setOnClickListener {
             val inputReq = getInputs()
@@ -71,7 +78,9 @@ class UpdateBook : AppCompatActivity() {
     private fun getInputs(): BookRequest {
         return BookRequest(
             elEditTextBookTitle.text.toString(),
-            elEditTextBookAuthor.text.toString()
+            elEditTextBookAuthor.text.toString(),
+            elEditTextBookNationality.text.toString(),
+            elEditTextBookDescription.text.toString()
         )
     }
 }

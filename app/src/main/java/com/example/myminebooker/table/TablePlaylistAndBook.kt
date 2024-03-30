@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.myminebooker.db.InterTable
-import com.example.myminebooker.table.models.PlaylistAndBookRequest
-import com.example.myminebooker.table.models.Book
-import com.example.myminebooker.table.models.Playlist
+import com.example.myminebooker.models.PlaylistAndBookRequest
+import com.example.myminebooker.models.Book
+import com.example.myminebooker.models.Playlist
 
 data class TablePlaylistAndBook (
     override val db: SQLiteOpenHelper,
@@ -25,7 +25,7 @@ data class TablePlaylistAndBook (
     @SuppressLint("Range")
     fun getBooksByPlaylist(playlist: Playlist): List<Book> {
         val data:MutableList<Book> = mutableListOf()
-        val query = "SELECT T1.${tableBook.columnId}, T1.${tableBook.columnTitle}, T1.${tableBook.columnAuthor}" +
+        val query = "SELECT T1.${tableBook.columnId}, T1.${tableBook.columnTitle}, T1.${tableBook.columnAuthor}, T1.${tableBook.columnNationality}, T1.${tableBook.columnDescription}" +
                 " FROM $tableName T" +
                 " INNER JOIN ${tableBook.tableName} T1" +
                 " ON T1.${tableBook.columnId} = T.$columnTableBook" +
@@ -40,7 +40,9 @@ data class TablePlaylistAndBook (
                 Book (
                     cursor.getInt(cursor.getColumnIndex(tableBook.columnId) ),
                     cursor.getString(cursor.getColumnIndex(tableBook.columnTitle) ),
-                    cursor.getString(cursor.getColumnIndex(tableBook.columnAuthor) )
+                    cursor.getString(cursor.getColumnIndex(tableBook.columnAuthor) ),
+                    cursor.getString(cursor.getColumnIndex(tableBook.columnNationality) ),
+                    cursor.getString(cursor.getColumnIndex(tableBook.columnDescription) )
                 )
             )
         }
@@ -61,7 +63,7 @@ data class TablePlaylistAndBook (
         return data
     }
 
-    fun deleteByBook( bookData: Book ): Int {
+    fun deleteByBook( bookData: Book): Int {
         return db.writableDatabase
             .delete(
                 tableName,
@@ -70,7 +72,7 @@ data class TablePlaylistAndBook (
             )
     }
 
-    fun deleteByPlaylist( playlistData: Playlist ): Int {
+    fun deleteByPlaylist( playlistData: Playlist): Int {
         return db.writableDatabase
             .delete(
                 tableName,
@@ -79,7 +81,7 @@ data class TablePlaylistAndBook (
             )
     }
 
-    fun deleteByPlaylistAndBook( playlistData: Playlist, bookData: Book ): Int {
+    fun deleteByPlaylistAndBook(playlistData: Playlist, bookData: Book): Int {
         return db.writableDatabase
             .delete(
                 tableName,

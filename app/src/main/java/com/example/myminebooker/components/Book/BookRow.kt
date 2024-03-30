@@ -1,4 +1,4 @@
-package com.example.myminebooker.components
+package com.example.myminebooker.components.Book
 
 import android.content.Context
 import android.content.Intent
@@ -8,10 +8,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myminebooker.OnlyBook
 import com.example.myminebooker.R
-import com.example.myminebooker.table.models.Book
-import com.example.myminebooker.table.models.Playlist
+import com.example.myminebooker.models.Book
+import com.example.myminebooker.models.Playlist
 import com.example.myminebooker.util.MyDB
 
 class BookRow (

@@ -1,4 +1,4 @@
-package com.example.myminebooker.table.models
+package com.example.myminebooker.models
 
 data class PlaylistRequest (
     val name: String

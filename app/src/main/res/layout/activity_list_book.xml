@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="35sp"
-    tools:context=".ListBook">
+    tools:context=".components.Book.ListBook">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewBookList"
